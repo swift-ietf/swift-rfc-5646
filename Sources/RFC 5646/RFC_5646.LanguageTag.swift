@@ -70,7 +70,7 @@ extension RFC_5646 {
     ///
     /// - Parameter value: Language tag string (e.g., "en-US")
     /// - Throws: `RFC_5646.Error` if invalid
-    public init(_ value: some StringProtocol) throws {
+    public init(_ value: some StringProtocol) throws(RFC_5646.Error) {
       let trimmed = value.trimmingCharacters(in: .whitespaces)
       guard !trimmed.isEmpty else {
         throw RFC_5646.Error.emptyTag
@@ -271,7 +271,7 @@ extension RFC_5646.LanguageTag {
 
 extension RFC_5646.LanguageTag {
   /// Parses and validates language subtag
-  private static func parseLanguage(_ subtag: String) throws -> Language {
+  private static func parseLanguage(_ subtag: String) throws(RFC_5646.Error) -> Language {
     let normalized = subtag.lowercased()
 
     // Must be 2-8 ASCII letters
@@ -298,7 +298,7 @@ extension RFC_5646.LanguageTag {
   }
 
   /// Parses and validates script subtag
-  private static func parseScript(_ subtag: String) throws -> ISO_15924.Alpha4 {
+  private static func parseScript(_ subtag: String) throws(RFC_5646.Error) -> ISO_15924.Alpha4 {
     do {
       return try ISO_15924.Alpha4(subtag)
     } catch {
@@ -307,7 +307,7 @@ extension RFC_5646.LanguageTag {
   }
 
   /// Parses and validates region subtag
-  private static func parseRegion(_ subtag: String) throws -> Region {
+  private static func parseRegion(_ subtag: String) throws(RFC_5646.Error) -> Region {
     // Try alpha-2 first
     if subtag.count == 2 {
       do {
@@ -332,7 +332,7 @@ extension RFC_5646.LanguageTag {
   }
 
   /// Parses and validates variant subtag
-  private static func parseVariant(_ subtag: String) throws -> String {
+  private static func parseVariant(_ subtag: String) throws(RFC_5646.Error) -> String {
     let normalized = subtag.lowercased()
 
     // Variant must be 5-8 alphanumeric starting with letter,
