@@ -76,8 +76,20 @@ extension RFC_5646 {
         throw RFC_5646.Error.emptyTag
       }
 
-      // Split into subtags
-      let subtags = trimmed.split(separator: "-").map(String.init)
+      // Split into subtags at byte level
+      let subtags: [String] = {
+          let bytes = Array(trimmed.utf8)
+          var result: [String] = []
+          var start = 0
+          for idx in 0..<bytes.count {
+              if bytes[idx] == 0x2D {  // '-'
+                  result.append(String(decoding: bytes[start..<idx], as: UTF8.self))
+                  start = idx &+ 1
+              }
+          }
+          result.append(String(decoding: bytes[start..<bytes.count], as: UTF8.self))
+          return result
+      }()
       guard !subtags.isEmpty else {
         throw RFC_5646.Error.emptyTag
       }
