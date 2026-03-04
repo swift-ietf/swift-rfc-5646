@@ -28,7 +28,6 @@ extension RFC_5646.LanguageTag.Parse {
 }
 
 extension RFC_5646.LanguageTag.Parse: Parser.`Protocol` {
-    public typealias ParseOutput = Output
     public typealias Failure = Never
 
     @inlinable
