@@ -3,7 +3,7 @@
 //
 // Language tag type per RFC 5646
 
-import ASCII
+import ASCII_Primitives
 public import ISO_15924
 public import ISO_3166
 public import ISO_639

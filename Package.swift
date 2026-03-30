@@ -23,7 +23,7 @@ extension PackageDescription.Target.Dependency {
     static let iso3166: Self = .product(name: "ISO 3166", package: "swift-iso-3166")
     static let iso15924: Self = .product(name: "ISO 15924", package: "swift-iso-15924")
     static let standards: Self = .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions")
-    static let incits_4_1986: Self = .product(name: "ASCII", package: "swift-ascii")
+    static let incits_4_1986: Self = .product(name: "ASCII Primitives", package: "swift-ascii-primitives")
     static let standardsTestSupport: Self = .product(name: "Test Primitives", package: "swift-test-primitives")
 
     static let rfc5646: Self = .target(name: .rfc5646)
@@ -42,7 +42,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../../swift-primitives/swift-standard-library-extensions"),
-        .package(path: "../../swift-foundations/swift-ascii"),
+        .package(path: "../../swift-primitives/swift-ascii-primitives"),
         .package(path: "../../swift-iso/swift-iso-639"),
         .package(path: "../../swift-iso/swift-iso-3166"),
         .package(path: "../../swift-iso/swift-iso-15924"),
