@@ -41,12 +41,12 @@ let package = Package(
         .library(name: "RFC 5646", targets: ["RFC 5646"])
     ],
     dependencies: [
-        .package(path: "../../swift-primitives/swift-standard-library-extensions"),
-        .package(path: "../../swift-primitives/swift-ascii-primitives"),
-        .package(path: "../../swift-iso/swift-iso-639"),
-        .package(path: "../../swift-iso/swift-iso-3166"),
-        .package(path: "../../swift-iso/swift-iso-15924"),
-        .package(path: "../../swift-primitives/swift-parser-primitives")
+        .package(url: "https://github.com/swift-primitives/swift-standard-library-extensions.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-ascii-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-iso/swift-iso-639.git", branch: "main"),
+        .package(url: "https://github.com/swift-iso/swift-iso-3166.git", branch: "main"),
+        .package(url: "https://github.com/swift-iso/swift-iso-15924.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main")
     ],
     targets: [
         .target(
