@@ -40,7 +40,8 @@ extension RFC_5646.LanguageTag.Parse: Parser.`Protocol` {
             var idx = input.startIndex
             while idx < input.endIndex {
                 let byte = input[idx]
-                let isAlphaNum = (byte >= 0x41 && byte <= 0x5A)
+                let isAlphaNum =
+                    (byte >= 0x41 && byte <= 0x5A)
                     || (byte >= 0x61 && byte <= 0x7A)
                     || (byte >= 0x30 && byte <= 0x39)
                 guard isAlphaNum else { break }
