@@ -298,7 +298,7 @@ extension RFC_5646.LanguageTag {
 
         // Try to parse as ISO 639 code (2-3 letters)
         if normalized.count == 2 || normalized.count == 3 {
-            do {
+            do throws(ISO_639.Error) {
                 let iso639Code = try ISO_639.LanguageCode(normalized)
                 return .iso639(iso639Code)
             } catch {
@@ -312,7 +312,7 @@ extension RFC_5646.LanguageTag {
 
     /// Parses and validates script subtag
     private static func parseScript(_ subtag: String) throws(RFC_5646.Error) -> ISO_15924.Alpha4 {
-        do {
+        do throws(ISO_15924.Alpha4.Error) {
             return try ISO_15924.Alpha4(subtag)
         } catch {
             throw RFC_5646.Error.invalidScriptSubtag(subtag)
@@ -323,7 +323,7 @@ extension RFC_5646.LanguageTag {
     private static func parseRegion(_ subtag: String) throws(RFC_5646.Error) -> Region {
         // Try alpha-2 first
         if subtag.count == 2 {
-            do {
+            do throws(ISO_3166.Alpha2.Error) {
                 let alpha2 = try ISO_3166.Alpha2(subtag)
                 return .alpha2(alpha2)
             } catch {
@@ -333,7 +333,7 @@ extension RFC_5646.LanguageTag {
 
         // Try numeric
         if subtag.count == 3 {
-            do {
+            do throws(ISO_3166.Numeric.Error) {
                 let numeric = try ISO_3166.Numeric(subtag)
                 return .numeric(numeric)
             } catch {
