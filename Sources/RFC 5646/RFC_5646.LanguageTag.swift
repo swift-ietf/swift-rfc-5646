@@ -81,7 +81,7 @@ extension RFC_5646 {
                 let bytes = Array(trimmed.utf8)
                 var result: [String] = []
                 var start = 0
-                for idx in 0..<bytes.count {
+                bytes.indices.forEach { idx in
                     if bytes[idx] == 0x2D {  // '-'
                         result.append(String(decoding: bytes[start..<idx], as: UTF8.self))
                         start = idx &+ 1
@@ -211,74 +211,6 @@ extension RFC_5646 {
             self.extensions = extensionSubtags
             self.privateUse = privateUseSubtags
         }
-    }
-}
-
-// MARK: - Language Type
-
-extension RFC_5646.LanguageTag {
-    /// Language subtag per RFC 5646
-    ///
-    /// RFC 5646 allows 2-8 letter language subtags:
-    /// - 2-3 letters: ISO 639 codes (most common)
-    /// - 4-8 letters: Reserved ranges (rare)
-    public enum Language: Sendable, Equatable, Hashable {
-        /// ISO 639 language code (2-3 letters)
-        case iso639(ISO_639.LanguageCode)
-
-        /// Reserved language code (4-8 letters, not in ISO 639)
-        /// Used for private use ranges like "qaa"-"qtz" or registered extensions
-        case reserved(String)
-    }
-}
-
-extension RFC_5646.LanguageTag.Language: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .iso639(let code):
-            return code.description
-
-        case .reserved(let code):
-            return code
-        }
-    }
-}
-
-// MARK: - Region Type
-
-extension RFC_5646.LanguageTag {
-    /// Region subtag (ISO 3166 alpha-2 or numeric)
-    public enum Region: Sendable, Equatable, Hashable {
-        /// 2-letter ISO 3166-1 alpha-2 code
-        case alpha2(ISO_3166.Alpha2)
-
-        /// 3-digit ISO 3166-1 numeric code (or UN M.49 code)
-        case numeric(ISO_3166.Numeric)
-    }
-}
-
-extension RFC_5646.LanguageTag.Region: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .alpha2(let code):
-            return code.value
-
-        case .numeric(let code):
-            return code.value
-        }
-    }
-}
-
-// MARK: - Extension Type
-
-extension RFC_5646.LanguageTag {
-    /// Extension subtag (singleton + values)
-    public struct Extension: Sendable, Equatable, Hashable {
-        /// Single character singleton (0-9, a-z except 'x')
-        public let singleton: Character
-
-        /// Extension values
-        public let values: [String]
     }
 }
 

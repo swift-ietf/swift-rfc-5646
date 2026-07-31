@@ -29,6 +29,7 @@ extension RFC_5646.LanguageTag.Parse {
 
 extension RFC_5646.LanguageTag.Parse: Parser.`Protocol` {
     public typealias Failure = Never
+    public typealias Body = Never
 
     @inlinable
     public func parse(_ input: inout Input) -> Output {
