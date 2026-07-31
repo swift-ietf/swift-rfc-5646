@@ -237,6 +237,7 @@ extension RFC_5646.LanguageTag.Language: CustomStringConvertible {
         switch self {
         case .iso639(let code):
             return code.description
+
         case .reserved(let code):
             return code
         }
@@ -261,6 +262,7 @@ extension RFC_5646.LanguageTag.Region: CustomStringConvertible {
         switch self {
         case .alpha2(let code):
             return code.value
+
         case .numeric(let code):
             return code.value
         }
@@ -410,11 +412,13 @@ extension RFC_5646.LanguageTag: CustomStringConvertible {
 // MARK: - Codable
 
 extension RFC_5646.LanguageTag: Codable {
+    // swiftlint:disable:next no_any_protocol_existential typed_throws_required - exact Encodable protocol requirement signature (stdlib; rule-exemptions protocol-requirement shape)
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(value)
     }
 
+    // swiftlint:disable:next no_any_protocol_existential typed_throws_required - exact Decodable protocol requirement signature (stdlib; rule-exemptions protocol-requirement shape)
     public init(from decoder: any Decoder) throws {
         let container = try decoder.singleValueContainer()
         let string = try container.decode(String.self)
