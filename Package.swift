@@ -1,8 +1,6 @@
 // swift-tools-version: 6.3.3
 import PackageDescription
 
-
-
 extension String {
     static let rfc5646: Self = "RFC 5646"
     static let rfc5646Tests: Self = rfc5646 + " Tests"
@@ -32,7 +30,7 @@ let package = Package(
         .macOS(.v26),
         .iOS(.v26),
         .tvOS(.v26),
-        .watchOS(.v26)
+        .watchOS(.v26),
     ],
     products: [
         .library(name: "RFC 5646", targets: ["RFC 5646"])
@@ -43,7 +41,7 @@ let package = Package(
         .package(url: "https://github.com/swift-iso/swift-iso-639.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-3166.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-15924.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main")
+        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -54,13 +52,13 @@ let package = Package(
                 .iso639,
                 .iso3166,
                 .iso15924,
-                .product(name: "Parser Primitives", package: "swift-parser-primitives")
+                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
             ]
         ),
         .testTarget(
             name: "RFC 5646 Tests",
             dependencies: [
-                "RFC 5646",
+                "RFC 5646"
             ]
         ),
     ],
