@@ -5,8 +5,8 @@
 
 import ASCII_Primitives
 public import ISO_15924
-public import ISO_3166
-public import ISO_639
+import ISO_3166
+import ISO_639
 import Standard_Library_Extensions
 
 extension RFC_5646 {
