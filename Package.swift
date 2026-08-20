@@ -9,8 +9,6 @@ extension String {
     static let iso3166: Self = "ISO 3166"
     static let iso15924: Self = "ISO 15924"
 
-    static let incits41986: Self = "INCITS_4_1986"
-
     var tests: Self { self + " Tests" }
 }
 
@@ -22,7 +20,7 @@ extension PackageDescription.Target.Dependency {
         name: "Standard Library Extensions",
         package: "swift-standard-library-extensions"
     )
-    static let incits41986: Self = .product(
+    static let ascii: Self = .product(
         name: "ASCII Primitives",
         package: "swift-ascii-primitives"
     )
@@ -63,7 +61,7 @@ let package = Package(
             name: "RFC 5646",
             dependencies: [
                 .standards,
-                .incits41986,
+                .ascii,
                 .iso639,
                 .iso3166,
                 .iso15924,
