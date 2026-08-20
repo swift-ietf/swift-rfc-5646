@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 import PackageDescription
 
 extension String {
@@ -9,7 +9,7 @@ extension String {
     static let iso3166: Self = "ISO 3166"
     static let iso15924: Self = "ISO 15924"
 
-    static let incits_4_1986: Self = "INCITS_4_1986"
+    static let incits41986: Self = "INCITS_4_1986"
 
     var tests: Self { self + " Tests" }
 }
@@ -18,8 +18,14 @@ extension PackageDescription.Target.Dependency {
     static let iso639: Self = .product(name: "ISO 639", package: "swift-iso-639")
     static let iso3166: Self = .product(name: "ISO 3166", package: "swift-iso-3166")
     static let iso15924: Self = .product(name: "ISO 15924", package: "swift-iso-15924")
-    static let standards: Self = .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions")
-    static let incits_4_1986: Self = .product(name: "ASCII Primitives", package: "swift-ascii-primitives")
+    static let standards: Self = .product(
+        name: "Standard Library Extensions",
+        package: "swift-standard-library-extensions"
+    )
+    static let incits41986: Self = .product(
+        name: "ASCII Primitives",
+        package: "swift-ascii-primitives"
+    )
 
     static let rfc5646: Self = .target(name: .rfc5646)
 }
@@ -27,28 +33,37 @@ extension PackageDescription.Target.Dependency {
 let package = Package(
     name: "swift-rfc-5646",
     platforms: [
-        .macOS("27"),
-        .iOS("27"),
-        .tvOS("27"),
-        .watchOS("27"),
+        .macOS(.v27),
+        .iOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
     ],
     products: [
         .library(name: "RFC 5646", targets: ["RFC 5646"])
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-primitives/swift-standard-library-extensions.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-ascii-primitives.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-primitives/swift-standard-library-extensions.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-ascii-primitives.git",
+            branch: "main"
+        ),
         .package(url: "https://github.com/swift-iso/swift-iso-639.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-3166.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-15924.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-primitives/swift-parser-primitives.git",
+            branch: "main"
+        ),
     ],
     targets: [
         .target(
             name: "RFC 5646",
             dependencies: [
                 .standards,
-                .incits_4_1986,
+                .incits41986,
                 .iso639,
                 .iso3166,
                 .iso15924,
