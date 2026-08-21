@@ -1,6 +1,3 @@
-// RFC5646Tests.swift
-// BCP 47 Tests
-
 import Foundation
 import ISO_15924
 import ISO_3166
@@ -13,8 +10,6 @@ import Testing
 struct RFC5646Tests {
     @Suite
     struct Unit {
-
-        // MARK: - Basic Language Tags
 
         @Test
         func `LanguageTag: Simple language codes`() throws {
@@ -45,8 +40,6 @@ struct RFC5646Tests {
             #expect(en1 == en2)
             #expect(en2 == en3)
         }
-
-        // MARK: - Language + Region
 
         @Test
         func `LanguageTag: Language with alpha-2 region`() throws {
@@ -82,8 +75,6 @@ struct RFC5646Tests {
             #expect(enUS3.value == "en-US")
         }
 
-        // MARK: - Language + Script
-
         @Test
         func `LanguageTag: Language with script`() throws {
             let zhHans = try RFC_5646.LanguageTag("zh-Hans")
@@ -110,8 +101,6 @@ struct RFC5646Tests {
             #expect(zh3.script?.value == "Hans")
         }
 
-        // MARK: - Language + Script + Region
-
         @Test
         func `LanguageTag: Language with script and region`() throws {
             let zhHansCN = try RFC_5646.LanguageTag("zh-Hans-CN")
@@ -129,8 +118,6 @@ struct RFC5646Tests {
             #expect(srLatnRS.script == ISO_15924.Alpha4.Latn)
             #expect(srLatnRS.region == .alpha2(try ISO_3166.Alpha2("RS")))
         }
-
-        // MARK: - Variants
 
         @Test
         func `LanguageTag: Language with variant`() throws {
@@ -152,8 +139,6 @@ struct RFC5646Tests {
             #expect(tag.variants == ["rozaj", "biske"])
         }
 
-        // MARK: - Extensions
-
         @Test
         func `LanguageTag: Language with extension`() throws {
             let tag = try RFC_5646.LanguageTag("en-US-u-ca-gregory")
@@ -174,8 +159,6 @@ struct RFC5646Tests {
             #expect(tag.extensions[1].values == ["ja"])
         }
 
-        // MARK: - Private Use
-
         @Test
         func `LanguageTag: Language with private use`() throws {
             let tag = try RFC_5646.LanguageTag("en-US-x-internal")
@@ -193,14 +176,11 @@ struct RFC5646Tests {
 
         @Test
         func `LanguageTag: Private use with valid language`() throws {
-            // Note: BCP 47 requires a valid language subtag before private use
-            // "x" alone is too short (must be 2-8 characters)
+
             let tag = try RFC_5646.LanguageTag("en-x-private")
             #expect(tag.language.description == "en")
             #expect(tag.privateUse == ["private"])
         }
-
-        // MARK: - Complex Tags
 
         @Test
         func `LanguageTag: Complex tag with all components`() throws {
@@ -215,16 +195,12 @@ struct RFC5646Tests {
             #expect(tag.privateUse == ["private"])
         }
 
-        // MARK: - String Conversion
-
         @Test
         func `LanguageTag: String conversion`() throws {
             let tag = try RFC_5646.LanguageTag("zh-Hans-CN")
             #expect(tag.description == "zh-Hans-CN")
             #expect(String(describing: tag) == "zh-Hans-CN")
         }
-
-        // MARK: - Equality and Hashing
 
         @Test
         func `LanguageTag: Equality`() throws {
@@ -237,11 +213,9 @@ struct RFC5646Tests {
             #expect(en1 != zh)
         }
 
-        // MARK: - StringProtocol Support
-
         @Test
         func `LanguageTag: Accepts Substring for zero-copy parsing`() throws {
-            // Test with Substring to verify StringProtocol parameter works
+
             let fullText = "prefix-en-US-suffix"
             let substring = fullText.dropFirst(7).dropLast(7)
 
@@ -253,7 +227,7 @@ struct RFC5646Tests {
 
         @Test
         func `LanguageTag: Accepts String slices`() throws {
-            // Test with String slice
+
             let text = "zh-Hans-CN"
             let range = text.startIndex..<text.endIndex
             let slice = text[range]
@@ -267,11 +241,10 @@ struct RFC5646Tests {
 
         @Test
         func `LanguageTag: StringProtocol preserves backward compatibility`() throws {
-            // Verify String literals still work (most common case)
+
             let tag1 = try RFC_5646.LanguageTag("en-GB")
             #expect(tag1.value == "en-GB")
 
-            // Verify String variables still work
             let stringVar: String = "fr-FR"
             let tag2 = try RFC_5646.LanguageTag(stringVar)
             #expect(tag2.value == "fr-FR")
@@ -319,39 +292,30 @@ struct RFC5646Tests {
 
         @Test
         func `LanguageTag: Invalid script subtag`() throws {
-            // "Xxxx" is 4 letters so looks like script, but is invalid
+
             #expect(throws: RFC_5646.Error.invalidScriptSubtag("Xxxx")) {
                 try RFC_5646.LanguageTag("en-Xxxx")
             }
 
-            // "Lat" is 3 letters, not 4, so doesn't look like script
-            // After language, we expect script/region/variant, but "Lat" is 3 letters
-            // (not 4 for script, not 2 or 3-digits for region, not 4-8 for variant)
-            // so it's an invalid subtag order
             #expect(throws: RFC_5646.Error.invalidSubtagOrder("en-Lat")) {
                 try RFC_5646.LanguageTag("en-Lat")
             }
 
-            // "latnn" is 5 letters, so it's actually a valid variant, not an error
             let tag = try RFC_5646.LanguageTag("en-latnn")
             #expect(tag.variants == ["latnn"])
         }
 
         @Test
         func `LanguageTag: Invalid region subtag`() {
-            // "USA" is 3 letters, doesn't match region structure (2 letters or 3 digits)
-            // So it's treated as invalid subtag order
+
             #expect(throws: RFC_5646.Error.invalidSubtagOrder("en-USA")) {
                 try RFC_5646.LanguageTag("en-USA")
             }
 
-            // "u" is 1 letter, looks like extension singleton
-            // But extensions must have at least one value
             #expect(throws: RFC_5646.Error.invalidExtension("u")) {
                 try RFC_5646.LanguageTag("en-u")
             }
 
-            // "ZZ" is 2 letters but not a recognized ISO 3166 code
             #expect(throws: RFC_5646.Error.invalidRegionSubtag("ZZ")) {
                 try RFC_5646.LanguageTag("en-ZZ")
             }
@@ -360,8 +324,6 @@ struct RFC5646Tests {
 
     @Suite
     struct Integration {
-
-        // MARK: - Codable
 
         @Test
         func `LanguageTag: Codable round-trip`() throws {
@@ -374,18 +336,15 @@ struct RFC5646Tests {
             #expect(decoded.value == "zh-Hans-CN")
         }
 
-        // MARK: - Real World Examples
-
         @Test
         func `LanguageTag: Real world examples`() throws {
-            // English variants
+
             _ = try RFC_5646.LanguageTag("en")
             _ = try RFC_5646.LanguageTag("en-US")
             _ = try RFC_5646.LanguageTag("en-GB")
             _ = try RFC_5646.LanguageTag("en-AU")
             _ = try RFC_5646.LanguageTag("en-CA")
 
-            // Chinese variants
             _ = try RFC_5646.LanguageTag("zh")
             _ = try RFC_5646.LanguageTag("zh-Hans")
             _ = try RFC_5646.LanguageTag("zh-Hant")
@@ -393,14 +352,12 @@ struct RFC5646Tests {
             _ = try RFC_5646.LanguageTag("zh-Hant-TW")
             _ = try RFC_5646.LanguageTag("zh-Hant-HK")
 
-            // Serbian variants
             _ = try RFC_5646.LanguageTag("sr")
             _ = try RFC_5646.LanguageTag("sr-Cyrl")
             _ = try RFC_5646.LanguageTag("sr-Latn")
             _ = try RFC_5646.LanguageTag("sr-Cyrl-RS")
             _ = try RFC_5646.LanguageTag("sr-Latn-RS")
 
-            // Others
             _ = try RFC_5646.LanguageTag("ja")
             _ = try RFC_5646.LanguageTag("ja-JP")
             _ = try RFC_5646.LanguageTag("ko")

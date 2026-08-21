@@ -1,21 +1,7 @@
-//
-//  RFC_5646.LanguageTag.Parse.swift
-//  swift-rfc-5646
-//
-//  RFC 5646 language tag: subtag *("-" subtag)
-//
-
 public import Parser_Primitives
 
 extension RFC_5646.LanguageTag {
-    /// Parses an RFC 5646 language tag.
-    ///
-    /// `langtag = language ["-" script] ["-" region] *("-" variant) *("-" extension) ["-" privateuse]`
-    ///
-    /// Returns the raw subtags as hyphen-separated byte slices. Structural
-    /// interpretation (which subtag is language vs script vs region) is
-    /// left to the caller — BCP 47 uses subtag length and position to
-    /// determine semantics.
+
     public struct Parse<Input: Collection.Slice.`Protocol`>: Sendable
     where Input: Sendable, Input.Element == UInt8 {
         @inlinable
@@ -36,7 +22,7 @@ extension RFC_5646.LanguageTag.Parse: Parser.`Protocol` {
         var subtags: [Input] = []
 
         while input.startIndex < input.endIndex {
-            // Consume subtag (alphanumeric characters)
+
             let subtagStart = input.startIndex
             var idx = input.startIndex
             while idx < input.endIndex {
@@ -55,7 +41,6 @@ extension RFC_5646.LanguageTag.Parse: Parser.`Protocol` {
                 break
             }
 
-            // Expect '-' separator or end
             if idx < input.endIndex && input[idx] == 0x2D {
                 input.formIndex(after: &idx)
                 input = input[idx...]
