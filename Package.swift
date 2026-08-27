@@ -21,8 +21,8 @@ extension PackageDescription.Target.Dependency {
         package: "swift-standard-library-extensions"
     )
     static let ascii: Self = .product(
-        name: "ASCII Primitives",
-        package: "swift-ascii-primitives"
+        name: "ASCII",
+        package: "swift-ascii"
     )
 
     static let rfc5646: Self = .target(name: .rfc5646)
@@ -41,18 +41,18 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-standard-library-extensions.git",
+            url: "https://github.com/swift-molecules/swift-standard-library-extensions.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-ascii-primitives.git",
+            url: "https://github.com/swift-molecules/swift-ascii.git",
             branch: "main"
         ),
         .package(url: "https://github.com/swift-iso/swift-iso-639.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-3166.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-15924.git", branch: "main"),
         .package(
-            url: "https://github.com/swift-primitives/swift-parser-primitives.git",
+            url: "https://github.com/swift-molecules/swift-parser.git",
             branch: "main"
         ),
     ],
@@ -65,7 +65,7 @@ let package = Package(
                 .iso639,
                 .iso3166,
                 .iso15924,
-                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
+                .product(name: "Parser", package: "swift-parser"),
             ]
         ),
         .testTarget(

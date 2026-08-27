@@ -1,4 +1,4 @@
-import ASCII_Primitives
+import ASCII
 public import ISO_15924
 import ISO_3166
 import ISO_639
