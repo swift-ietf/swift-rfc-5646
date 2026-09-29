@@ -27,7 +27,8 @@ let package = Package(
         .package(url: "https://github.com/swift-iso/swift-iso-15924.git", branch: "main"),
         .package(
             url: "https://github.com/swift-atoms/swift-parser.git",
-            branch: "main"
+            branch: "main",
+            traits: ["Collection"]
         ),
     ],
     targets: [
