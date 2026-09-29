@@ -13,7 +13,7 @@ extension RFC_5646.LanguageTag.Parse {
     public typealias Output = [Input]
 }
 
-extension RFC_5646.LanguageTag.Parse: Parser.`Protocol` {
+extension RFC_5646.LanguageTag.Parse: Parsing {
     public typealias Failure = Never
     public typealias Body = Never
 

@@ -18,14 +18,14 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-ascii.git",
+            url: "https://github.com/swift-atoms/swift-ascii.git",
             branch: "main"
         ),
         .package(url: "https://github.com/swift-iso/swift-iso-639.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-3166.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-15924.git", branch: "main"),
         .package(
-            url: "https://github.com/swift-molecules/swift-parser.git",
+            url: "https://github.com/swift-atoms/swift-parser.git",
             branch: "main"
         ),
     ],
@@ -35,9 +35,9 @@ let package = Package(
             dependencies: [
                 .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions"),
                 .product(name: "ASCII", package: "swift-ascii"),
-                .target(name: "ISO 639"),
-                .target(name: "ISO 3166"),
-                .target(name: "ISO 15924"),
+                .product(name: "ISO 639", package: "swift-iso-639"),
+                .product(name: "ISO 3166", package: "swift-iso-3166"),
+                .product(name: "ISO 15924", package: "swift-iso-15924"),
                 .product(name: "Parser", package: "swift-parser"),
             ]
         ),
