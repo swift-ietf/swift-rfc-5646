@@ -113,6 +113,11 @@ extension RFC_5646 {
                     privateUseSubtags.append(subtags[index])
                     index += 1
                 }
+                guard !privateUseSubtags.isEmpty,
+                    privateUseSubtags.allSatisfy({ (1...8).contains($0.count) && $0.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber) } })
+                else {
+                    throw RFC_5646.Error.invalidPrivateUse(String(value))
+                }
             }
 
             guard index == subtags.count else {
