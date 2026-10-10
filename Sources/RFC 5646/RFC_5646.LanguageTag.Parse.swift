@@ -14,11 +14,6 @@ extension RFC_5646.LanguageTag.Parse {
 }
 
 extension RFC_5646.LanguageTag.Parse: Parsing {
-    public var body: Never {
-        borrowing get {
-            return fatalError("\(Self.self) is a leaf parser: implement parse(_:) directly")
-        }
-    }
 
     public typealias Failure = Never
     public typealias Body = Never
