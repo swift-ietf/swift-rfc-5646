@@ -2,7 +2,7 @@ import Standard_Library_Extensions
 
 extension RFC_5646 {
 
-    public enum Error: Swift.Error, Sendable, Equatable {
+    public enum Error: Swift::Error, Sendable, Equatable {
 
         case emptyTag
 
