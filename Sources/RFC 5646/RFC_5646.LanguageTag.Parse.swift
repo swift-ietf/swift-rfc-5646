@@ -36,19 +36,17 @@ extension RFC_5646.LanguageTag.Parse: Parsing {
                 input.formIndex(after: &idx)
             }
 
-            if idx > subtagStart {
-                subtags.append(input[subtagStart..<idx])
-            } else {
+            guard idx > subtagStart else {
                 break
             }
+            subtags.append(input[subtagStart..<idx])
 
-            if idx < input.endIndex && input[idx] == 0x2D {
-                input.formIndex(after: &idx)
-                input = input[idx...]
-            } else {
+            guard idx < input.endIndex && input[idx] == 0x2D else {
                 input = input[idx...]
                 break
             }
+            input.formIndex(after: &idx)
+            input = input[idx...]
         }
 
         return subtags
