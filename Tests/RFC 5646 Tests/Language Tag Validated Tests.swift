@@ -1,5 +1,5 @@
-public import ISO_3166
-public import ISO_639
+import ISO_3166
+import ISO_639
 import Testing
 
 @testable import RFC_5646
