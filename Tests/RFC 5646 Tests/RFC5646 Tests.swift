@@ -6,8 +6,8 @@ import Testing
 
 @testable import RFC_5646
 
-@Suite("RFC 5646 Language Tags")
-struct RFC5646Tests {
+@Suite
+struct `RFC 5646 Language Tags` {
     @Suite
     struct Unit {
 
