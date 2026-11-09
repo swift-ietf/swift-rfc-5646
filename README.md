@@ -8,7 +8,7 @@ Use this package when you need to check, store or compare a language tag such as
 - Spaces and tabs around the tag are trimmed. Any non-ASCII character is refused, including a Kelvin sign that would lowercase to `k`.
 - `RFC_5646.LanguageTag.value` is written in canonical case: language and variants lowercase, script with an initial capital, region uppercase, extension singletons lowercase. Extension and private use subtags keep the case they were written in. `EN-us` and `en-US` give equal tags.
 - A two or three letter language that ISO 639 knows is held as `RFC_5646.LanguageTag.Language.iso639(_:)`. Any other language of 2 to 8 letters is accepted and held as `RFC_5646.LanguageTag.Language.reserved(_:)`.
-- A script must be a known ISO 15924 code, so `en-Xxxx` is refused. A two letter region must be an assigned ISO 3166 alpha-2 code, so `en-ZZ` is refused. A three digit region must be an ISO 3166 numeric country code, so UN M.49 area codes such as 419 in es-419 are refused.
+- A script must be a known ISO 15924 code, so `en-Xxxx` is refused. A two letter region must be an assigned ISO 3166 alpha-2 code, so `en-ZZ` is refused. A three digit region must be an ISO 3166 numeric country code or a UN M.49 area code in the IANA registry, such as 419 in `es-419`, so `en-999` is refused.
 - A variant is 5 to 8 letters or digits, or 4 starting with a digit, and may appear only once, compared without case. An extension singleton other than `x` may appear only once and needs at least one subtag after it. Private use subtags are 1 to 8 letters or digits.
 - A subtag in the wrong place, such as `en-USA` or `en-Lat`, fails as out of order rather than as an invalid region or script.
 - A tag encodes as its canonical string and decodes through the same validation.

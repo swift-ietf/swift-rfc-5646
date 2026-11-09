@@ -69,6 +69,20 @@ extension `RFC5646 Tests` {
             }
 
             @Test
+            func `LanguageTag: Language with UN M.49 area region`() throws {
+                let es419 = try RFC_5646.LanguageTag("es-419")
+                #expect(es419.value == "es-419")
+                #expect(es419.region == .area(try RFC_5646.LanguageTag.Region.Area("419")))
+
+                let en001 = try RFC_5646.LanguageTag("en-001")
+                #expect(en001.region == .area(try RFC_5646.LanguageTag.Region.Area("001")))
+
+                #expect(throws: RFC_5646.Error.invalidRegionSubtag("999")) {
+                    try RFC_5646.LanguageTag("en-999")
+                }
+            }
+
+            @Test
             func `LanguageTag: Case normalization for region`() throws {
                 let enUS1 = try RFC_5646.LanguageTag("en-US")
                 let enUS2 = try RFC_5646.LanguageTag("en-us")

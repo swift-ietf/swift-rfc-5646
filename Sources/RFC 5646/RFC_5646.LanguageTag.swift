@@ -211,7 +211,7 @@ extension RFC_5646.LanguageTag {
                 let numeric = try ISO_3166.Numeric(subtag)
                 return .numeric(numeric)
             } catch {
-                throw RFC_5646.Error.invalidRegionSubtag(subtag)
+                return .area(try Region.Area(subtag))
             }
         }
 

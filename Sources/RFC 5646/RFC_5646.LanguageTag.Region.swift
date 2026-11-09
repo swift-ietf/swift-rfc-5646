@@ -7,6 +7,8 @@ extension RFC_5646.LanguageTag {
         case alpha2(ISO_3166.Alpha2)
 
         case numeric(ISO_3166.Numeric)
+
+        case area(Area)
     }
 }
 
@@ -17,6 +19,9 @@ extension RFC_5646.LanguageTag.Region: CustomStringConvertible {
             return code.value
 
         case .numeric(let code):
+            return code.value
+
+        case .area(let code):
             return code.value
         }
     }
