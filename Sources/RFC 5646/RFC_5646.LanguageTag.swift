@@ -105,6 +105,10 @@ extension RFC_5646 {
                 guard !extensionValues.isEmpty else {
                     throw RFC_5646.Error.invalidExtension(String(singleton))
                 }
+                guard extensionValues.allSatisfy({ (2...8).contains($0.count) && $0.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber) } })
+                else {
+                    throw RFC_5646.Error.invalidExtension(String(value))
+                }
 
                 extensionSubtags.append(Extension(singleton: singleton, values: extensionValues))
             }
