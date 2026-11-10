@@ -206,7 +206,11 @@ extension RFC_5646.LanguageTag {
                 let alpha2 = try ISO_3166.Alpha2(subtag)
                 return .alpha2(alpha2)
             } catch {
-                throw RFC_5646.Error.invalidRegionSubtag(subtag)
+                let code = subtag.uppercased()
+                guard Region.isReserved(code) else {
+                    throw RFC_5646.Error.invalidRegionSubtag(subtag)
+                }
+                return .reserved(code)
             }
         }
 

@@ -9,6 +9,8 @@ extension RFC_5646.LanguageTag {
         case numeric(ISO_3166.Numeric)
 
         case area(Area)
+
+        case reserved(String)
     }
 }
 
@@ -23,6 +25,28 @@ extension RFC_5646.LanguageTag.Region: CustomStringConvertible {
 
         case .area(let code):
             return code.value
+
+        case .reserved(let code):
+            return code
         }
+    }
+}
+
+extension RFC_5646.LanguageTag.Region {
+
+    static let reservedCodes: Set<String> = [
+        "AC", "CP", "CQ", "DG", "EA", "EU", "EZ", "IC", "TA", "UN",
+        "AN", "BU", "CS", "DD", "FX", "NT", "SU", "TP", "YD", "YU", "ZR",
+        "AA", "ZZ",
+    ]
+
+    static func isReserved(_ code: String) -> Bool {
+        guard code.count == 2, code.allSatisfy({ $0.isASCII && $0.isUppercase }) else {
+            return false
+        }
+        if reservedCodes.contains(code) {
+            return true
+        }
+        return code.first == "X" || (code.first == "Q" && code.last.map { $0 >= "M" } == true)
     }
 }

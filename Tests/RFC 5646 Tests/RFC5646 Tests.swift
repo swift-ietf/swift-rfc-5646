@@ -83,6 +83,18 @@ extension `RFC5646 Tests` {
             }
 
             @Test
+            func `LanguageTag: Language with a reserved region in the IANA registry`() throws {
+                let enDG = try RFC_5646.LanguageTag("en-dg")
+                #expect(enDG.value == "en-DG")
+                #expect(enDG.region == .reserved("DG"))
+
+                #expect(try RFC_5646.LanguageTag("sq-XK").region == .reserved("XK"))
+                #expect(try RFC_5646.LanguageTag("en-QM").region == .reserved("QM"))
+                #expect(try RFC_5646.LanguageTag("en-ZZ").region == .reserved("ZZ"))
+                #expect(try RFC_5646.LanguageTag("de-DD").region == .reserved("DD"))
+            }
+
+            @Test
             func `LanguageTag: Case normalization for region`() throws {
                 let enUS1 = try RFC_5646.LanguageTag("en-US")
                 let enUS2 = try RFC_5646.LanguageTag("en-us")
@@ -333,8 +345,12 @@ extension `RFC5646 Tests` {
                     try RFC_5646.LanguageTag("en-u")
                 }
 
-                #expect(throws: RFC_5646.Error.invalidRegionSubtag("ZZ")) {
-                    try RFC_5646.LanguageTag("en-ZZ")
+                #expect(throws: RFC_5646.Error.invalidRegionSubtag("UK")) {
+                    try RFC_5646.LanguageTag("en-UK")
+                }
+
+                #expect(throws: RFC_5646.Error.invalidRegionSubtag("QL")) {
+                    try RFC_5646.LanguageTag("en-QL")
                 }
             }
         }
