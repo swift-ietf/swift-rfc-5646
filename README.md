@@ -1,6 +1,6 @@
 # swift-rfc-5646
 
-Use this package when you need to check, store or compare a language tag such as `en-US` or `zh-Hans-CN` and want its subtags validated against ISO 639, ISO 15924 and ISO 3166. Start from `RFC_5646.LanguageTag`. To build a tag from codes you already hold, use `RFC_5646.LanguageTag.init(language:script:region:)`. For the language, script or region codes on their own, use swift-iso-639, swift-iso-15924 or swift-iso-3166.
+Use this package when you need to check, store or compare a language tag such as `en-US` or `zh-Hans-CN` and want its subtags validated against ISO 639, ISO 15924 and ISO 3166. Start from `RFC_5646.LanguageTag`. To build a tag from codes you already hold, use `RFC_5646.LanguageTag.init(language:script:region:)`, or name a language alone by its ISO 639-1 code, as in `.nl`. For the language, script or region codes on their own, use swift-iso-639, swift-iso-15924 or swift-iso-3166.
 
 ## Laws
 
@@ -13,3 +13,4 @@ Use this package when you need to check, store or compare a language tag such as
 - A subtag in the wrong place, such as `en-USA` or `en-Lat`, fails as out of order rather than as an invalid region or script.
 - A tag encodes as its canonical string and decodes through the same validation.
 - A tag built from codes equals the tag parsed from the same text.
+- Every ISO 639-1 language is a static member holding the tag of that language alone, so `RFC_5646.LanguageTag.nl` equals the tag parsed from `nl`.
