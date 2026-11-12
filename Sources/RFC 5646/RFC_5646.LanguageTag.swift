@@ -27,7 +27,7 @@ extension RFC_5646 {
             guard !trimmed.isEmpty else {
                 throw RFC_5646.Error.emptyTag
             }
-            guard trimmed.allSatisfy(\.isASCII) else {
+            guard trimmed.allSatisfy({ $0.isASCII }) else {
                 throw RFC_5646.Error.invalidCharacters(trimmed)
             }
 
