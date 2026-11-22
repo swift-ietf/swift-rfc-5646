@@ -1,20 +1,20 @@
-extension RFC_5646.LanguageTag.Region {
+extension IETF.RFC.`5646`.LanguageTag.Region {
 
     public struct Area: Sendable, Equatable, Hashable {
 
         public let value: String
 
-        public init(_ value: some StringProtocol) throws(RFC_5646.Error) {
+        public init(_ value: some StringProtocol) throws(IETF.RFC.`5646`.Error) {
             let code = String(value)
             guard Self.codes.contains(code) else {
-                throw RFC_5646.Error.invalidRegionSubtag(code)
+                throw IETF.RFC.`5646`.Error.invalidRegionSubtag(code)
             }
             self.value = code
         }
     }
 }
 
-extension RFC_5646.LanguageTag.Region.Area {
+extension IETF.RFC.`5646`.LanguageTag.Region.Area {
 
     static let codes: Set<String> = [
         "001", "002", "003", "005", "009", "011", "013", "014", "015", "017",
@@ -24,6 +24,6 @@ extension RFC_5646.LanguageTag.Region.Area {
     ]
 }
 
-extension RFC_5646.LanguageTag.Region.Area: CustomStringConvertible {
+extension IETF.RFC.`5646`.LanguageTag.Region.Area: CustomStringConvertible {
     public var description: String { value }
 }

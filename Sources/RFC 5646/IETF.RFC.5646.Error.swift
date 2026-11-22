@@ -1,6 +1,6 @@
 import Standard_Library_Extensions
 
-extension RFC_5646 {
+extension IETF.RFC.`5646` {
 
     public enum Error: Swift::Error, Sendable, Equatable {
 

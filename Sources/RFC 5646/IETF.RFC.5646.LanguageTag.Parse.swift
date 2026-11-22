@@ -1,6 +1,6 @@
 public import Parser
 
-extension RFC_5646.LanguageTag {
+extension IETF.RFC.`5646`.LanguageTag {
 
     public struct Parse<Input: Collection.Slice.`Protocol`>: Sendable
     where Input: Sendable, Input.Element == UInt8 {
@@ -9,11 +9,11 @@ extension RFC_5646.LanguageTag {
     }
 }
 
-extension RFC_5646.LanguageTag.Parse {
+extension IETF.RFC.`5646`.LanguageTag.Parse {
     public typealias Output = [Input]
 }
 
-extension RFC_5646.LanguageTag.Parse: Parsing {
+extension IETF.RFC.`5646`.LanguageTag.Parse: Parsing {
 
     public typealias Failure = Never
     public typealias Body = Never

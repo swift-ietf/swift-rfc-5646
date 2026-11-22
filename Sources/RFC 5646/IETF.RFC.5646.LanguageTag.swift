@@ -4,7 +4,7 @@ import ISO_3166
 import ISO_639
 import Standard_Library_Extensions
 
-extension RFC_5646 {
+extension IETF.RFC.`5646` {
 
     public struct LanguageTag: Sendable, Equatable, Hashable {
 
@@ -22,13 +22,13 @@ extension RFC_5646 {
 
         public let privateUse: [String]
 
-        public init(_ value: some StringProtocol) throws(RFC_5646.Error) {
+        public init(_ value: some StringProtocol) throws(IETF.RFC.`5646`.Error) {
             let trimmed = String(value.trimming(where: { $0 == " " || $0 == "\t" }))
             guard !trimmed.isEmpty else {
-                throw RFC_5646.Error.emptyTag
+                throw IETF.RFC.`5646`.Error.emptyTag
             }
             guard trimmed.allSatisfy({ $0.isASCII }) else {
-                throw RFC_5646.Error.invalidCharacters(trimmed)
+                throw IETF.RFC.`5646`.Error.invalidCharacters(trimmed)
             }
 
             let subtags: [String] = {
@@ -45,13 +45,13 @@ extension RFC_5646 {
                 return result
             }()
             guard !subtags.isEmpty else {
-                throw RFC_5646.Error.emptyTag
+                throw IETF.RFC.`5646`.Error.emptyTag
             }
 
             var index = 0
 
             guard index < subtags.count else {
-                throw RFC_5646.Error.missingLanguageSubtag
+                throw IETF.RFC.`5646`.Error.missingLanguageSubtag
             }
             let languageSubtag = try Self.parseLanguage(subtags[index])
             index += 1
@@ -73,7 +73,7 @@ extension RFC_5646 {
                 let variant = try Self.parseVariant(subtags[index])
 
                 if variantSubtags.contains(variant) {
-                    throw RFC_5646.Error.duplicateVariant(variant)
+                    throw IETF.RFC.`5646`.Error.duplicateVariant(variant)
                 }
                 variantSubtags.append(variant)
                 index += 1
@@ -83,11 +83,11 @@ extension RFC_5646 {
             var seenSingletons = Set<Character>()
             while index < subtags.count, Self.isExtensionSingleton(subtags[index]) {
                 guard let singleton = subtags[index].lowercased().first else {
-                    throw RFC_5646.Error.invalidExtension(subtags[index])
+                    throw IETF.RFC.`5646`.Error.invalidExtension(subtags[index])
                 }
 
                 if seenSingletons.contains(singleton) {
-                    throw RFC_5646.Error.duplicateExtensionSingleton(singleton)
+                    throw IETF.RFC.`5646`.Error.duplicateExtensionSingleton(singleton)
                 }
                 seenSingletons.insert(singleton)
 
@@ -103,11 +103,11 @@ extension RFC_5646 {
                 }
 
                 guard !extensionValues.isEmpty else {
-                    throw RFC_5646.Error.invalidExtension(String(singleton))
+                    throw IETF.RFC.`5646`.Error.invalidExtension(String(singleton))
                 }
                 guard extensionValues.allSatisfy({ (2...8).contains($0.count) && $0.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber) } })
                 else {
-                    throw RFC_5646.Error.invalidExtension(String(value))
+                    throw IETF.RFC.`5646`.Error.invalidExtension(String(value))
                 }
 
                 extensionSubtags.append(Extension(singleton: singleton, values: extensionValues))
@@ -123,12 +123,12 @@ extension RFC_5646 {
                 guard !privateUseSubtags.isEmpty,
                     privateUseSubtags.allSatisfy({ (1...8).contains($0.count) && $0.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber) } })
                 else {
-                    throw RFC_5646.Error.invalidPrivateUse(String(value))
+                    throw IETF.RFC.`5646`.Error.invalidPrivateUse(String(value))
                 }
             }
 
             guard index == subtags.count else {
-                throw RFC_5646.Error.invalidSubtagOrder(String(value))
+                throw IETF.RFC.`5646`.Error.invalidSubtagOrder(String(value))
             }
 
             var canonical = languageSubtag.description
@@ -166,17 +166,17 @@ extension RFC_5646 {
     }
 }
 
-extension RFC_5646.LanguageTag {
+extension IETF.RFC.`5646`.LanguageTag {
 
-    private static func parseLanguage(_ subtag: String) throws(RFC_5646.Error) -> Language {
+    private static func parseLanguage(_ subtag: String) throws(IETF.RFC.`5646`.Error) -> Language {
         let normalized = subtag.lowercased()
 
         guard normalized.count >= 2, normalized.count <= 8 else {
-            throw RFC_5646.Error.invalidLanguageSubtag(subtag)
+            throw IETF.RFC.`5646`.Error.invalidLanguageSubtag(subtag)
         }
 
         guard normalized.allSatisfy({ $0.ascii.isLetter }) else {
-            throw RFC_5646.Error.invalidCharacters(subtag)
+            throw IETF.RFC.`5646`.Error.invalidCharacters(subtag)
         }
 
         if normalized.count == 2 || normalized.count == 3 {
@@ -191,15 +191,15 @@ extension RFC_5646.LanguageTag {
         return .reserved(normalized)
     }
 
-    private static func parseScript(_ subtag: String) throws(RFC_5646.Error) -> ISO.`15924`.Alpha4 {
+    private static func parseScript(_ subtag: String) throws(IETF.RFC.`5646`.Error) -> ISO.`15924`.Alpha4 {
         do throws(ISO.`15924`.Alpha4.Error) {
             return try ISO.`15924`.Alpha4(subtag)
         } catch {
-            throw RFC_5646.Error.invalidScriptSubtag(subtag)
+            throw IETF.RFC.`5646`.Error.invalidScriptSubtag(subtag)
         }
     }
 
-    private static func parseRegion(_ subtag: String) throws(RFC_5646.Error) -> Region {
+    private static func parseRegion(_ subtag: String) throws(IETF.RFC.`5646`.Error) -> Region {
 
         if subtag.count == 2 {
             do throws(ISO.`3166`.Alpha2.Error) {
@@ -208,7 +208,7 @@ extension RFC_5646.LanguageTag {
             } catch {
                 let code = subtag.uppercased()
                 guard Region.isReserved(code) else {
-                    throw RFC_5646.Error.invalidRegionSubtag(subtag)
+                    throw IETF.RFC.`5646`.Error.invalidRegionSubtag(subtag)
                 }
                 return .reserved(code)
             }
@@ -223,10 +223,10 @@ extension RFC_5646.LanguageTag {
             }
         }
 
-        throw RFC_5646.Error.invalidRegionSubtag(subtag)
+        throw IETF.RFC.`5646`.Error.invalidRegionSubtag(subtag)
     }
 
-    private static func parseVariant(_ subtag: String) throws(RFC_5646.Error) -> String {
+    private static func parseVariant(_ subtag: String) throws(IETF.RFC.`5646`.Error) -> String {
         let normalized = subtag.lowercased()
 
         let startsWithDigit = normalized.first?.ascii.isDigit ?? false
@@ -234,14 +234,14 @@ extension RFC_5646.LanguageTag {
         let maxLength = 8
 
         guard normalized.count >= minLength, normalized.count <= maxLength else {
-            throw RFC_5646.Error.invalidSubtagLength(
+            throw IETF.RFC.`5646`.Error.invalidSubtagLength(
                 subtag,
                 expected: "\(minLength)-\(maxLength) characters"
             )
         }
 
         guard normalized.allSatisfy({ $0.isASCII && ($0.isLetter || $0.isNumber) }) else {
-            throw RFC_5646.Error.invalidCharacters(subtag)
+            throw IETF.RFC.`5646`.Error.invalidCharacters(subtag)
         }
 
         return normalized
@@ -273,12 +273,12 @@ extension RFC_5646.LanguageTag {
     }
 }
 
-extension RFC_5646.LanguageTag: CustomStringConvertible {
+extension IETF.RFC.`5646`.LanguageTag: CustomStringConvertible {
     public var description: String { value }
 }
 
 #if !hasFeature(Embedded)
-    extension RFC_5646.LanguageTag: Codable {
+    extension IETF.RFC.`5646`.LanguageTag: Codable {
         public func encode(to encoder: any Encoder) throws {
             var container = encoder.singleValueContainer()
             try container.encode(value)
