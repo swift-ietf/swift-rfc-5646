@@ -4,7 +4,7 @@ extension RFC_5646.LanguageTag {
 
     public enum Language: Sendable, Equatable, Hashable {
 
-        case iso639(ISO_639.LanguageCode)
+        case iso639(ISO.`639`.LanguageCode)
 
         case reserved(String)
     }

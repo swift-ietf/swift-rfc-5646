@@ -4,9 +4,9 @@ extension RFC_5646.LanguageTag {
 
     public enum Region: Sendable, Equatable, Hashable {
 
-        case alpha2(ISO_3166.Alpha2)
+        case alpha2(ISO.`3166`.Alpha2)
 
-        case numeric(ISO_3166.Numeric)
+        case numeric(ISO.`3166`.Numeric)
 
         case area(Area)
 

@@ -12,7 +12,7 @@ extension RFC_5646 {
 
         public let language: Language
 
-        public let script: ISO_15924.Alpha4?
+        public let script: ISO.`15924`.Alpha4?
 
         public let region: Region?
 
@@ -56,7 +56,7 @@ extension RFC_5646 {
             let languageSubtag = try Self.parseLanguage(subtags[index])
             index += 1
 
-            var scriptSubtag: ISO_15924.Alpha4?
+            var scriptSubtag: ISO.`15924`.Alpha4?
             if index < subtags.count, Self.looksLikeScript(subtags[index]) {
                 scriptSubtag = try Self.parseScript(subtags[index])
                 index += 1
@@ -180,8 +180,8 @@ extension RFC_5646.LanguageTag {
         }
 
         if normalized.count == 2 || normalized.count == 3 {
-            do throws(ISO_639.Error) {
-                let iso639Code = try ISO_639.LanguageCode(normalized)
+            do throws(ISO.`639`.Error) {
+                let iso639Code = try ISO.`639`.LanguageCode(normalized)
                 return .iso639(iso639Code)
             } catch {
 
@@ -191,9 +191,9 @@ extension RFC_5646.LanguageTag {
         return .reserved(normalized)
     }
 
-    private static func parseScript(_ subtag: String) throws(RFC_5646.Error) -> ISO_15924.Alpha4 {
-        do throws(ISO_15924.Alpha4.Error) {
-            return try ISO_15924.Alpha4(subtag)
+    private static func parseScript(_ subtag: String) throws(RFC_5646.Error) -> ISO.`15924`.Alpha4 {
+        do throws(ISO.`15924`.Alpha4.Error) {
+            return try ISO.`15924`.Alpha4(subtag)
         } catch {
             throw RFC_5646.Error.invalidScriptSubtag(subtag)
         }
@@ -202,8 +202,8 @@ extension RFC_5646.LanguageTag {
     private static func parseRegion(_ subtag: String) throws(RFC_5646.Error) -> Region {
 
         if subtag.count == 2 {
-            do throws(ISO_3166.Alpha2.Error) {
-                let alpha2 = try ISO_3166.Alpha2(subtag)
+            do throws(ISO.`3166`.Alpha2.Error) {
+                let alpha2 = try ISO.`3166`.Alpha2(subtag)
                 return .alpha2(alpha2)
             } catch {
                 let code = subtag.uppercased()
@@ -215,8 +215,8 @@ extension RFC_5646.LanguageTag {
         }
 
         if subtag.count == 3 {
-            do throws(ISO_3166.Numeric.Error) {
-                let numeric = try ISO_3166.Numeric(subtag)
+            do throws(ISO.`3166`.Numeric.Error) {
+                let numeric = try ISO.`3166`.Numeric(subtag)
                 return .numeric(numeric)
             } catch {
                 return .area(try Region.Area(subtag))

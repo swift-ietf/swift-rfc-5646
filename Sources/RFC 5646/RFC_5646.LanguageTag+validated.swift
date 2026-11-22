@@ -6,7 +6,7 @@ extension RFC_5646.LanguageTag {
 
     public init(
         language: Language,
-        script: ISO_15924.Alpha4? = nil,
+        script: ISO.`15924`.Alpha4? = nil,
         region: Region? = nil
     ) {
         var canonical = language.description
@@ -25,9 +25,9 @@ extension RFC_5646.LanguageTag {
         self.privateUse = []
     }
 
-    public init(language alpha2: ISO_639.Alpha2, region: ISO_3166.Alpha2? = nil) {
+    public init(language alpha2: ISO.`639`.Alpha2, region: ISO.`3166`.Alpha2? = nil) {
         self.init(
-            language: .iso639(ISO_639.LanguageCode(alpha2: alpha2, alpha3: ISO_639.Alpha3(alpha2))),
+            language: .iso639(ISO.`639`.LanguageCode(alpha2: alpha2, alpha3: ISO.`639`.Alpha3(alpha2))),
             region: region.map { .alpha2($0) }
         )
     }

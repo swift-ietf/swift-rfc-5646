@@ -50,22 +50,22 @@ extension `RFC5646 Tests` {
                 #expect(enUS.value == "en-US")
                 #expect(enUS.language.description == "en")
                 #expect(enUS.script == nil)
-                #expect(enUS.region == .alpha2(try ISO_3166.Alpha2("US")))
+                #expect(enUS.region == .alpha2(try ISO.`3166`.Alpha2("US")))
 
                 let frFR = try RFC_5646.LanguageTag("fr-FR")
                 #expect(frFR.language.description == "fr")
-                #expect(frFR.region == .alpha2(try ISO_3166.Alpha2("FR")))
+                #expect(frFR.region == .alpha2(try ISO.`3166`.Alpha2("FR")))
 
                 let deDE = try RFC_5646.LanguageTag("de-DE")
                 #expect(deDE.language.description == "de")
-                #expect(deDE.region == .alpha2(try ISO_3166.Alpha2("DE")))
+                #expect(deDE.region == .alpha2(try ISO.`3166`.Alpha2("DE")))
             }
 
             @Test
             func `LanguageTag: Language with numeric region`() throws {
                 let en840 = try RFC_5646.LanguageTag("en-840")
                 #expect(en840.language.description == "en")
-                #expect(en840.region == .numeric(try ISO_3166.Numeric("840")))
+                #expect(en840.region == .numeric(try ISO.`3166`.Numeric("840")))
             }
 
             @Test
@@ -109,15 +109,15 @@ extension `RFC5646 Tests` {
                 let zhHans = try RFC_5646.LanguageTag("zh-Hans")
                 #expect(zhHans.value == "zh-Hans")
                 #expect(zhHans.language.description == "zh")
-                #expect(zhHans.script == ISO_15924.Alpha4.Hans)
+                #expect(zhHans.script == ISO.`15924`.Alpha4.Hans)
                 #expect(zhHans.region == nil)
 
                 let zhHant = try RFC_5646.LanguageTag("zh-Hant")
-                #expect(zhHant.script == ISO_15924.Alpha4.Hant)
+                #expect(zhHant.script == ISO.`15924`.Alpha4.Hant)
 
                 let srCyrl = try RFC_5646.LanguageTag("sr-Cyrl")
                 #expect(srCyrl.language.description == "sr")
-                #expect(srCyrl.script == ISO_15924.Alpha4.Cyrl)
+                #expect(srCyrl.script == ISO.`15924`.Alpha4.Cyrl)
             }
 
             @Test
@@ -135,29 +135,29 @@ extension `RFC5646 Tests` {
                 let zhHansCN = try RFC_5646.LanguageTag("zh-Hans-CN")
                 #expect(zhHansCN.value == "zh-Hans-CN")
                 #expect(zhHansCN.language.description == "zh")
-                #expect(zhHansCN.script == ISO_15924.Alpha4.Hans)
-                #expect(zhHansCN.region == .alpha2(try ISO_3166.Alpha2("CN")))
+                #expect(zhHansCN.script == ISO.`15924`.Alpha4.Hans)
+                #expect(zhHansCN.region == .alpha2(try ISO.`3166`.Alpha2("CN")))
 
                 let zhHantTW = try RFC_5646.LanguageTag("zh-Hant-TW")
-                #expect(zhHantTW.script == ISO_15924.Alpha4.Hant)
-                #expect(zhHantTW.region == .alpha2(try ISO_3166.Alpha2("TW")))
+                #expect(zhHantTW.script == ISO.`15924`.Alpha4.Hant)
+                #expect(zhHantTW.region == .alpha2(try ISO.`3166`.Alpha2("TW")))
 
                 let srLatnRS = try RFC_5646.LanguageTag("sr-Latn-RS")
                 #expect(srLatnRS.language.description == "sr")
-                #expect(srLatnRS.script == ISO_15924.Alpha4.Latn)
-                #expect(srLatnRS.region == .alpha2(try ISO_3166.Alpha2("RS")))
+                #expect(srLatnRS.script == ISO.`15924`.Alpha4.Latn)
+                #expect(srLatnRS.region == .alpha2(try ISO.`3166`.Alpha2("RS")))
             }
 
             @Test
             func `LanguageTag: Language with variant`() throws {
                 let deCH1996 = try RFC_5646.LanguageTag("de-CH-1996")
                 #expect(deCH1996.language.description == "de")
-                #expect(deCH1996.region == .alpha2(try ISO_3166.Alpha2("CH")))
+                #expect(deCH1996.region == .alpha2(try ISO.`3166`.Alpha2("CH")))
                 #expect(deCH1996.variants == ["1996"])
 
                 let enUSposix = try RFC_5646.LanguageTag("en-US-posix")
                 #expect(enUSposix.language.description == "en")
-                #expect(enUSposix.region == .alpha2(try ISO_3166.Alpha2("US")))
+                #expect(enUSposix.region == .alpha2(try ISO.`3166`.Alpha2("US")))
                 #expect(enUSposix.variants == ["posix"])
             }
 
@@ -172,7 +172,7 @@ extension `RFC5646 Tests` {
             func `LanguageTag: Language with extension`() throws {
                 let tag = try RFC_5646.LanguageTag("en-US-u-ca-gregory")
                 #expect(tag.language.description == "en")
-                #expect(tag.region == .alpha2(try ISO_3166.Alpha2("US")))
+                #expect(tag.region == .alpha2(try ISO.`3166`.Alpha2("US")))
                 #expect(tag.extensions.count == 1)
                 #expect(tag.extensions[0].singleton == "u")
                 #expect(tag.extensions[0].values == ["ca", "gregory"])
@@ -192,7 +192,7 @@ extension `RFC5646 Tests` {
             func `LanguageTag: Language with private use`() throws {
                 let tag = try RFC_5646.LanguageTag("en-US-x-internal")
                 #expect(tag.language.description == "en")
-                #expect(tag.region == .alpha2(try ISO_3166.Alpha2("US")))
+                #expect(tag.region == .alpha2(try ISO.`3166`.Alpha2("US")))
                 #expect(tag.privateUse == ["internal"])
             }
 
@@ -215,8 +215,8 @@ extension `RFC5646 Tests` {
             func `LanguageTag: Complex tag with all components`() throws {
                 let tag = try RFC_5646.LanguageTag("zh-Hans-CN-rozaj-u-ca-chinese-x-private")
                 #expect(tag.language.description == "zh")
-                #expect(tag.script == ISO_15924.Alpha4.Hans)
-                #expect(tag.region == .alpha2(try ISO_3166.Alpha2("CN")))
+                #expect(tag.script == ISO.`15924`.Alpha4.Hans)
+                #expect(tag.region == .alpha2(try ISO.`3166`.Alpha2("CN")))
                 #expect(tag.variants == ["rozaj"])
                 #expect(tag.extensions.count == 1)
                 #expect(tag.extensions[0].singleton == "u")
@@ -251,7 +251,7 @@ extension `RFC5646 Tests` {
                 let tag = try RFC_5646.LanguageTag(substring)
                 #expect(tag.value == "en-US")
                 #expect(tag.language.description == "en")
-                #expect(tag.region == .alpha2(try ISO_3166.Alpha2("US")))
+                #expect(tag.region == .alpha2(try ISO.`3166`.Alpha2("US")))
             }
 
             @Test
@@ -264,8 +264,8 @@ extension `RFC5646 Tests` {
                 let tag = try RFC_5646.LanguageTag(slice)
                 #expect(tag.value == "zh-Hans-CN")
                 #expect(tag.language.description == "zh")
-                #expect(tag.script == ISO_15924.Alpha4.Hans)
-                #expect(tag.region == .alpha2(try ISO_3166.Alpha2("CN")))
+                #expect(tag.script == ISO.`15924`.Alpha4.Hans)
+                #expect(tag.region == .alpha2(try ISO.`3166`.Alpha2("CN")))
             }
 
             @Test

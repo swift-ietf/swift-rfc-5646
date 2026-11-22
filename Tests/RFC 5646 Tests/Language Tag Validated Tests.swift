@@ -11,12 +11,12 @@ extension `Language Tag Validated Tests` {
     struct `Language tag from validated subtags` {
         @Test
         func `a language alone equals the parsed tag`() throws {
-            #expect(RFC_5646.LanguageTag(language: ISO_639.Alpha2.ab) == (try RFC_5646.LanguageTag("ab")))
+            #expect(RFC_5646.LanguageTag(language: ISO.`639`.Alpha2.ab) == (try RFC_5646.LanguageTag("ab")))
         }
 
         @Test
         func `a language with a region equals the parsed tag`() throws {
-            #expect(RFC_5646.LanguageTag(language: ISO_639.Alpha2.en, region: ISO_3166.Alpha2.au) == (try RFC_5646.LanguageTag("en-AU")))
+            #expect(RFC_5646.LanguageTag(language: ISO.`639`.Alpha2.en, region: ISO.`3166`.Alpha2.au) == (try RFC_5646.LanguageTag("en-AU")))
         }
 
         @Test
