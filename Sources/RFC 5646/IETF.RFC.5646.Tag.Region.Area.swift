@@ -1,4 +1,4 @@
-extension IETF.RFC.`5646`.LanguageTag.Region {
+extension IETF.RFC.`5646`.Tag.Region {
 
     public struct Area: Sendable, Equatable, Hashable {
 
@@ -14,7 +14,7 @@ extension IETF.RFC.`5646`.LanguageTag.Region {
     }
 }
 
-extension IETF.RFC.`5646`.LanguageTag.Region.Area {
+extension IETF.RFC.`5646`.Tag.Region.Area {
 
     static let codes: Set<String> = [
         "001", "002", "003", "005", "009", "011", "013", "014", "015", "017",
@@ -24,6 +24,6 @@ extension IETF.RFC.`5646`.LanguageTag.Region.Area {
     ]
 }
 
-extension IETF.RFC.`5646`.LanguageTag.Region.Area: CustomStringConvertible {
+extension IETF.RFC.`5646`.Tag.Region.Area: CustomStringConvertible {
     public var description: String { value }
 }

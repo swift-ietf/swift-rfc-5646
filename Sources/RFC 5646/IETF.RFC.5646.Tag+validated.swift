@@ -2,7 +2,7 @@ public import ISO_15924
 public import ISO_3166
 public import ISO_639
 
-extension IETF.RFC.`5646`.LanguageTag {
+extension IETF.RFC.`5646`.Tag {
 
     public init(
         language: Language,

@@ -1,4 +1,4 @@
-extension IETF.RFC.`5646`.LanguageTag {
+extension IETF.RFC.`5646`.Tag {
 
     public struct Extension: Sendable, Equatable, Hashable {
 

@@ -11,12 +11,12 @@ extension `Language Tag Boundary Tests` {
             "en-", "-en", "en--US", "en-a", "en-x", "en-x-", "en-abcdefghi", "en-US-abc", "en-rozaj-ROZAJ", "en-a-bbb-a-ccc", "en-x-abcdefghi", "en-x-a!b", "en-a-abcdefghi", "en-a-b!c",
         ])
         func `malformed tags are rejected`(_ tag: String) {
-            #expect(throws: IETF.RFC.`5646`.Error.self) { try IETF.RFC.`5646`.LanguageTag(tag) }
+            #expect(throws: IETF.RFC.`5646`.Error.self) { try IETF.RFC.`5646`.Tag(tag) }
         }
 
         @Test(arguments: ["en-1996", "de-CH-1901", "sl-rozaj-biske", "en-a-bbb-x-a-ccc", "en-a-bb-12345678", "en-Latn-US-valencia", "en-x-a-12345678"])
         func `well-formed edge tags are accepted`(_ tag: String) throws {
-            _ = try IETF.RFC.`5646`.LanguageTag(tag)
+            _ = try IETF.RFC.`5646`.Tag(tag)
         }
     }
 }

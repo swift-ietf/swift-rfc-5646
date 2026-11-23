@@ -10,13 +10,13 @@ extension `Language Tag Scope Tests` {
         @Test(arguments: ["x-whatever", "x-a-b", "i-klingon", "en-GB-oed"])
         func `only langtag is supported, so private-use-only and irregular grandfathered tags are refused`(_ text: String) {
             #expect(throws: IETF.RFC.`5646`.Error.self) {
-                try IETF.RFC.`5646`.LanguageTag(text)
+                try IETF.RFC.`5646`.Tag(text)
             }
         }
 
         @Test
         func `a langtag with a private-use suffix is supported`() throws {
-            #expect(try IETF.RFC.`5646`.LanguageTag("en-x-whatever").language == IETF.RFC.`5646`.LanguageTag("en").language)
+            #expect(try IETF.RFC.`5646`.Tag("en-x-whatever").language == IETF.RFC.`5646`.Tag("en").language)
         }
     }
 }

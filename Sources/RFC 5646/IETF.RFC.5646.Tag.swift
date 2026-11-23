@@ -6,7 +6,7 @@ import Standard_Library_Extensions
 
 extension IETF.RFC.`5646` {
 
-    public struct LanguageTag: Sendable, Equatable, Hashable {
+    public struct Tag: Sendable, Equatable, Hashable {
 
         public let value: String
 
@@ -166,7 +166,7 @@ extension IETF.RFC.`5646` {
     }
 }
 
-extension IETF.RFC.`5646`.LanguageTag {
+extension IETF.RFC.`5646`.Tag {
 
     private static func parseLanguage(_ subtag: String) throws(IETF.RFC.`5646`.Error) -> Language {
         let normalized = subtag.lowercased()
@@ -273,12 +273,12 @@ extension IETF.RFC.`5646`.LanguageTag {
     }
 }
 
-extension IETF.RFC.`5646`.LanguageTag: CustomStringConvertible {
+extension IETF.RFC.`5646`.Tag: CustomStringConvertible {
     public var description: String { value }
 }
 
 #if !hasFeature(Embedded)
-    extension IETF.RFC.`5646`.LanguageTag: Codable {
+    extension IETF.RFC.`5646`.Tag: Codable {
         public func encode(to encoder: any Encoder) throws {
             var container = encoder.singleValueContainer()
             try container.encode(value)

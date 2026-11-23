@@ -1,6 +1,6 @@
 public import ISO_3166
 
-extension IETF.RFC.`5646`.LanguageTag {
+extension IETF.RFC.`5646`.Tag {
 
     public enum Region: Sendable, Equatable, Hashable {
 
@@ -14,7 +14,7 @@ extension IETF.RFC.`5646`.LanguageTag {
     }
 }
 
-extension IETF.RFC.`5646`.LanguageTag.Region: CustomStringConvertible {
+extension IETF.RFC.`5646`.Tag.Region: CustomStringConvertible {
     public var description: String {
         switch self {
         case .alpha2(let code):
@@ -32,7 +32,7 @@ extension IETF.RFC.`5646`.LanguageTag.Region: CustomStringConvertible {
     }
 }
 
-extension IETF.RFC.`5646`.LanguageTag.Region {
+extension IETF.RFC.`5646`.Tag.Region {
 
     static let reservedCodes: Set<String> = [
         "AC", "CP", "CQ", "DG", "EA", "EU", "EZ", "IC", "TA", "UN",
